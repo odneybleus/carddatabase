@@ -15,6 +15,19 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String brand;
+
+    private String model;
+
+    private String color;
+
+    private String registrationNumber;
+
+    private int modelYear;
+
+    private int price;
+
+
     public Car(Long id, String brand, String model, String color, String registrationNumber, int modelYear, int price) {
         this.id = id;
         this.brand = brand;
@@ -81,15 +94,4 @@ public class Car {
         this.price = price;
     }
 
-    private String brand;
-
-    private String model;
-
-    private String color;
-
-    private String registrationNumber;
-
-    private int modelYear;
-
-    private int price;
 }
