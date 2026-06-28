@@ -2,9 +2,10 @@ package com.packt.cardatabase.Model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
+@Table(name = "owner")
 public class Owner {
 
     @Id
@@ -13,17 +14,32 @@ public class Owner {
     private String firstName;
     private String lastName;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
-    private List<Car> cars;
+    @Column(unique = true)
+    private String userName;
+
+    private String userPassword;
+
+    @ManyToMany
+    @JoinTable(
+            name = "car_owner",
+            joinColumns = @JoinColumn(name = "ownerID"),
+            inverseJoinColumns = @JoinColumn(name = "id")
+    )
+    private Set<Car> ownedCars;
+
+    private Role role;
 
     public Owner() {
     }
 
-    public Owner(long ownerID, String firstName, String lastName, List<Car> cars) {
+    public Owner(long ownerID, String firstName, String lastName, String userName, String userPassword, Set<Car> ownedCars, Role role) {
         this.ownerID = ownerID;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.cars = cars;
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.ownedCars = ownedCars;
+        this.role = role;
     }
 
     public long getOwnerID() {
@@ -50,11 +66,35 @@ public class Owner {
         this.lastName = lastName;
     }
 
-    public List<Car> getCars() {
-        return cars;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setCars(List<Car> cars) {
-        this.cars = cars;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    public Set<Car> getOwnedCars() {
+        return ownedCars;
+    }
+
+    public void setOwnedCars(Set<Car> ownedCars) {
+        this.ownedCars = ownedCars;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

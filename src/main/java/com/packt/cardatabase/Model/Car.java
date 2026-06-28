@@ -4,6 +4,7 @@ package com.packt.cardatabase.Model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "cars")
 public class Car {
     public Car() {
     }
